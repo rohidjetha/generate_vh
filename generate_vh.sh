@@ -2,7 +2,6 @@
 
 echo "<VirtualHost *:80>
 	            AddDefaultCharset utf-8
-	           # ServerAdmin
 	            ServerName $1
 	            ServerAlias www.$1
 	            DocumentRoot $2
@@ -26,3 +25,9 @@ echo "<VirtualHost *:80>
 	            TransferLog /var/log/apache2/$1-access_log
 </VirtualHost>" > ~/Desktop/$1.conf
 
+if [ $3 = "true" ]
+then
+	ls;
+else
+	echo "Apache not restarted";
+fi
