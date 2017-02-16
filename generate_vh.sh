@@ -25,7 +25,7 @@ echo "<VirtualHost *:80>
 	            TransferLog /var/log/apache2/$1-access_log
 </VirtualHost>" > /etc/apache2/sites-available/$1.conf
 
-if [ -a /etc/apache2/sites-available/$1.conf ]; then
+if [ -e /etc/apache2/sites-available/$1.conf ]; then
     echo "File generated"
 else
     echo "Error : File not generated.."
