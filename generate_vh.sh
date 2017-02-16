@@ -25,6 +25,12 @@ echo "<VirtualHost *:80>
 	            TransferLog /var/log/apache2/$1-access_log
 </VirtualHost>" > ~/Desktop/$1.conf
 
+if [ -a ~/Desktop/$1.conf ]; then
+echo "File generated"
+else
+echo "Error : File not generated.."
+fi
+
 if [ $3 = "true" ]
 then
 	ls;
