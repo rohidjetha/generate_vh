@@ -2,12 +2,12 @@
 
 echo "<VirtualHost *:80>
 	            AddDefaultCharset utf-8
-	            ServerAdmin 
-	            ServerName 
-	            ServerAlias 
-	            DocumentRoot 
+	           # ServerAdmin
+	            ServerName $1
+	            ServerAlias www.$1
+	            DocumentRoot $2
 	            
-	            <Directory >
+	            <Directory $2 >
 	             AllowOverride All
 	             Order allow,deny
 	             allow from all
@@ -22,8 +22,7 @@ echo "<VirtualHost *:80>
 
 	            </Directory>
 
-	            ErrorLog /var/log/apache2/-error_log
-	            TransferLog /var/log/apache2/-access_log
+	            ErrorLog /var/log/apache2/$1-error_log
+	            TransferLog /var/log/apache2/$1-access_log
 </VirtualHost>" > ~/Desktop/$1.conf
 
-ls;
