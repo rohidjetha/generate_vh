@@ -1,4 +1,4 @@
-# generate_vh - Generate Virtual Hosts quickly and easily
+# generate_vh
 
 Generate Virtual Hosts quickly and easily with a single command.
 For Apache2.
