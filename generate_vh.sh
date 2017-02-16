@@ -23,17 +23,20 @@ echo "<VirtualHost *:80>
 
 	            ErrorLog /var/log/apache2/$1-error_log
 	            TransferLog /var/log/apache2/$1-access_log
-</VirtualHost>" > ~/Desktop/$1.conf
+</VirtualHost>" > /etc/apache2/sites-available/$1.conf
 
-if [ -a ~/Desktop/$1.conf ]; then
-echo "File generated"
+if [ -a /etc/apache2/sites-available/$1.conf ]; then
+    echo "File generated"
 else
-echo "Error : File not generated.."
+    echo "Error : File not generated.."
 fi
 
-if [ $3 = "true" ]
-then
-	ls;
+if [ a2ensite $1.conf ]; then
+    echo "Site enabled"
+fi
+
+if [ $3 = "true" ]; then
+	/etc/init.d/apache2 restart
 else
-	echo "Apache not restarted";
+	echo "Apache not restarted"
 fi
