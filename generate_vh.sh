@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ $# -eq 0 ]]; then
+    echo "$(tput setaf 1) Parameters required. Use like:$(tput setaf 7) ./generate_vh [ServerName] [DocumentRoot] [ReloadApache]"
+    exit 0
+fi
+
 echo "<VirtualHost *:80>
 	            AddDefaultCharset utf-8
 	            ServerName $1
@@ -26,17 +31,15 @@ echo "<VirtualHost *:80>
 </VirtualHost>" > /etc/apache2/sites-available/$1.conf
 
 if [ -e /etc/apache2/sites-available/$1.conf ]; then
-    echo "File generated"
+    echo "$(tput setaf 2)File generated"
 else
-    echo "Error : File not generated.."
+    echo "$(tput setaf 1)Error : File not generated.."
 fi
 
-if [ a2ensite $1.conf ]; then
-    echo "Site enabled"
-fi
+a2ensite $1.conf
 
 if [ $3 = "true" ]; then
 	/etc/init.d/apache2 restart
 else
-	echo "Apache not restarted"
+	echo "$(tput setaf 4) Apache not restarted"
 fi
