@@ -4,7 +4,7 @@ Generate Virtual Hosts quickly and easily with a single command.
 For Apache2.
 
 ```sh
-$ ./generate_vh [ServerName] [DocumentRoot] [ReloadApache]
+$ ./generate_vh [ServerName] [DocumentRoot] [ReloadApache: true or false]
 ```
 
 ## Example
