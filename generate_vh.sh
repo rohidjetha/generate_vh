@@ -38,7 +38,7 @@ fi
 
 a2ensite $1.conf
 
-if [ $3 = "true" ]; then
+if [ $3 = "yes" ]; then
 	/etc/init.d/apache2 restart
 else
 	echo "$(tput setaf 4) Apache not restarted"
