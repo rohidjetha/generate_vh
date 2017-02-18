@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#Default parameters
+domain=$1
+rootDir=$2
+opt=$3
+sitesAvailable='/etc/apache2/sites-available/'
+
 if [[ $# -eq 0 ]]; then
     echo "$(tput setaf 1) Parameters required. Use like:$(tput setaf 7) ./generate_vh [ServerName] [DocumentRoot] [ReloadApache]"
     exit 0
@@ -7,30 +13,30 @@ fi
 
 echo "<VirtualHost *:80>
 	            AddDefaultCharset utf-8
-	            ServerName $1
-	            ServerAlias www.$1
-	            DocumentRoot $2
+	            ServerName "$domain"
+	            ServerAlias www."$domain"
+	            DocumentRoot "$rootDir"
 	            
-	            <Directory $2 >
+	            <Directory "$rootDir" >
 	             AllowOverride All
 	             Order allow,deny
 	             allow from all
-	             #other guidelines here if needed..
+	             #others guidelines here if needed..
                     </Directory>
 
-	            ErrorLog /var/log/apache2/$1-error_log
-	            TransferLog /var/log/apache2/$1-access_log
-</VirtualHost>" > /etc/apache2/sites-available/$1.conf
+	            ErrorLog /var/log/apache2/"$domain"-error_log
+	            TransferLog /var/log/apache2/"$domain"-access_log
+</VirtualHost>" > $sitesAvailable$domain.conf
 
-if [ -e /etc/apache2/sites-available/$1.conf ]; then
-    echo "$(tput setaf 2)File generated"
+if [ -e $sitesAvailable$domain.conf ]; then
+    echo "$(tput setaf 2)Virtual Host Created ($domain.conf)"
 else
     echo "$(tput setaf 1)Error : File not generated.."
 fi
 
-a2ensite $1.conf
+a2ensite $domain.conf
 
-if [ $3 = "yes" ]; then
+if [ $opt = "yes" ]; then
 	/etc/init.d/apache2 restart
 else
 	echo "$(tput setaf 4) Apache not restarted"
